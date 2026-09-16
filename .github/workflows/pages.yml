@@ -35,7 +35,7 @@ jobs:
           cache: pnpm
 
       - name: Install ilspycmd
-        run: dotnet tool install --global ilspycmd
+        run: dotnet tool install --global ilspycmd --version 9.0.0.7889
 
       - name: Build Terraria WASM
         run: make build
