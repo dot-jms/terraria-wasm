@@ -25,6 +25,25 @@
 
 	<body>
 		<div id="app"></div>
+		<script>
+			// Static hosts such as GitHub Pages cannot emit COOP/COEP headers.
+			// Install the worker before loading the app; on the first visit it
+			// claims the page and reloads so the app starts isolated.
+			if (!crossOriginIsolated && "serviceWorker" in navigator) {
+				navigator.serviceWorker
+					.register(new URL("./coi-serviceworker.js", document.baseURI), {
+						scope: new URL("./", document.baseURI).pathname,
+					})
+					.then((registration) => {
+						if (registration.active && !navigator.serviceWorker.controller) {
+							location.reload();
+						}
+					})
+					.catch((error) =>
+						console.error("Unable to enable cross-origin isolation", error),
+					);
+			}
+		</script>
 		<script type="module" src="/src/app.tsx"></script>
 	</body>
 </html>
