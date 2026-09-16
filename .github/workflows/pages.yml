@@ -42,6 +42,13 @@ jobs:
           cp -r prebuilt/_framework public/_framework
           cp prebuilt/sw.js public/sw.js
 
+
+      - name: Split WASM
+        run: |
+          cd public/_framework
+          split -b20M -d -a1 dotnet.native.*.wasm dotnet.native.*.wasm
+
+          
       - name: Build static site
         env:
           GITHUB_PAGES: "true"
