@@ -4,6 +4,10 @@ import { createHtmlPlugin } from "vite-plugin-html";
 import { writeFileSync } from "fs";
 import { execSync } from "child_process";
 
+const base =
+	process.env.VITE_BASE_PATH ??
+	(process.env.GITHUB_PAGES === "true" ? "/terraria-wasm/" : "./");
+
 export default defineConfig({
 	plugins: [
 		dreamlandPlugin(),
@@ -16,7 +20,7 @@ export default defineConfig({
 			},
 		},
 	],
-	base: "./",
+	base,
 	server: {
 		headers: {
 			"Cross-Origin-Embedder-Policy": "require-corp",
