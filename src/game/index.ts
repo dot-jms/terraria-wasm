@@ -108,14 +108,14 @@ export async function preInit() {
 				return (async () => {
 					let idx = 0;
 
-					let fetchNext = async () => {
-						let res = await realFetch(defaultUri + idx);
-						idx++;
-						if (!res.body) throw new Error("no body in fetch response");
-						return res.status === 200 && !res.headers.get("content-type")
-							? res.body.getReader()
-							: null;
-					};
+let fetchNext = async () => {
+	let res = await realFetch(defaultUri + idx);
+	idx++;
+	if (!res.body) throw new Error("no body in fetch response");
+	return res.status === 200 && res.body
+		? res.body.getReader()
+		: null;
+};
 
 					let chunk = await fetchNext();
 					if (!chunk) throw new Error("failed to fetch first chunk");
