@@ -19,7 +19,7 @@ export const gameState: Stateful<{
 });
 
 const dotnet: DotnetHostBuilder = (
-	await eval(`import("/_framework/dotnet.js")`)
+	await eval(`import(new URL("_framework/dotnet.js", document.baseURI).href)`)
 ).dotnet;
 let exports: any;
 
